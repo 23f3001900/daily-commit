@@ -1,0 +1,21 @@
+name: Daily Commit
+
+on:
+  schedule:
+    - cron: '30 6 * * *'  # Runs daily at 06:30 UTC (12:00 IST)
+
+jobs:
+  commit-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Add timestamped file - 23f3001900@ds.study.iitm.ac.in
+        run: |
+          echo "Commit from $(date)" > daily_commit.txt
+          git config --global user.name "GitHub Action"
+          git config --global user.email "23f3001900@ds.study.iitm.ac.in"
+          git add daily_commit.txt
+          git commit -m "Daily commit from GitHub Action"
+          git push
